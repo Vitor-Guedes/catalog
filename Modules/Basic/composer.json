@@ -1,0 +1,23 @@
+{
+    "name": "projec/basic",
+    "description": "",
+    "authors": [
+        {
+            "name": "Vitor Guedes",
+            "email": "vtrf2.0@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Basic\\": ""
+        }
+    }
+}
