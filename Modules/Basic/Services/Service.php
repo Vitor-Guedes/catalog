@@ -48,7 +48,7 @@ class Service
     public function show(int $id)
     {
         try {
-            // return $this->builder->findOrFail($id);
+            return $this->builder->findOrFail($id);
         } catch (Exception $e) {
             return $this->handleException($e);
         }
@@ -106,6 +106,7 @@ class Service
      */
     protected function handleException(Exception $e)
     {
+        dd($e);
         $message = __($this->moduleName . "::general.error");
         return response()->json([
             'error' => $message

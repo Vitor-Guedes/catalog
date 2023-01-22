@@ -65,4 +65,14 @@ extends BasicService
         }
         return $this->builder->where('name', 'like', "%$value%");
     }
+
+    /**
+     * @param $value
+     */
+    public function groups($value)
+    {
+        if ($value = filter_var($value, FILTER_VALIDATE_BOOLEAN)) {
+            return $this->builder->with('attributeGroups');
+        }
+    }
 }

@@ -12,4 +12,9 @@ extends Model
     protected $fillable = ['name'];
     
     public $timestamps = false;
+
+    public function attributeGroups()
+    {
+        return $this->hasMany(Group::class, 'attribute_family_id');
+    }
 }
