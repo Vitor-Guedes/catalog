@@ -12,7 +12,9 @@ class Service
 
     protected $builder;
 
-    public $limit = 10;
+    protected $limit = 10;
+
+    protected $columns = ['*'];
     
     protected $moduleName = 'basic';
 
@@ -29,7 +31,10 @@ class Service
     public function index()
     {
         try {
-            return $this->builder->simplePaginate();
+            return $this->builder->simplePaginate(
+                $this->limit,
+                $this->columns
+            );
         } catch (Exception $e) {
             return $this->handleException($e);
         }
