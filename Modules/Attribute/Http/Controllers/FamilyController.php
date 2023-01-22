@@ -61,8 +61,24 @@ extends Controller
 
     public function update(FamilyService $service, Request $request, int $id)
     {
-        $data = $request->validated();
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|required|min:2|max:30|unique:attribute_families,name,' . $id
+        ], [
+            'string' => __('attribute::general.family.name.string'),
+            'required' => __('attribute::general.family.name.required'),
+            'min' => __('attribute::general.family.name.min'),
+            'max' => __('attribute::general.family.name.max'),
+            'unique' => __('attribute::general.family.name.unique')
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json(
+                $validator->errors(),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $data = $validator->validated();
         $response = $service->update($id, $data);
         if ($response instanceof \Illuminate\Http\JsonResponse) {
             return $response;
