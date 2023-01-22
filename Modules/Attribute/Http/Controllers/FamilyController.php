@@ -54,8 +54,12 @@ extends Controller
 
     public function show(FamilyService $service, int $id)
     {
+        $response = $service->show($id);
+        if ($response instanceof \Illuminate\Http\JsonResponse) {
+            return $response;
+        }
         return response()->json([
-            'attribute_family' => $service->show($id)
+            'attribute_family' => $response 
         ], Response::HTTP_OK);
     }
 

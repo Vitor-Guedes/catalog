@@ -54,8 +54,12 @@ extends Controller
 
     public function show(GroupService $service, int $id)
     {
+        $response = $service->show($id);
+        if ($response instanceof \Illuminate\Http\JsonResponse) {
+            return $response;
+        }
         return response()->json([
-            'attribute_group' => $service->show($id)
+            'attribute_group' => $response
         ], Response::HTTP_OK);
     }
 

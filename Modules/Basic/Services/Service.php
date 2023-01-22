@@ -93,7 +93,7 @@ class Service
     public function destroy(int $id)
     {
         try {
-            return $this->model->delete($id);
+            return $this->model->findOrFail($id)->delete();
         } catch (Exception $e) {
             return $this->handleException($e);
         }
@@ -106,7 +106,6 @@ class Service
      */
     protected function handleException(Exception $e)
     {
-        dd($e);
         $message = __($this->moduleName . "::general.error");
         return response()->json([
             'error' => $message
