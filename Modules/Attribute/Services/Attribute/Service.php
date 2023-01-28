@@ -3,7 +3,7 @@
 namespace Modules\Attribute\Services\Attribute;
 
 use Modules\Basic\Traits\Facet;
-use Modules\Attribute\Entity\Attribute;
+use Modules\Attribute\Entities\Attribute;
 use Modules\Basic\Services\Service as BasicService;
 
 class Service
@@ -74,5 +74,15 @@ extends BasicService
         if (preg_match("/[^a-z0-9|^_]/", $value, $matches)) {
             $this->columns = explode(current($matches), $value);
         }
+    }
+
+    /**
+     * @param array $code
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection 
+     */
+    public function getAttributesByCode(array $codes = [], array $columns = ['*'])
+    {
+        return $this->model->whereIn('code', $codes)->get($columns);
     }
 }

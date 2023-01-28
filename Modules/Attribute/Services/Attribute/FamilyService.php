@@ -3,7 +3,7 @@
 namespace Modules\Attribute\Services\Attribute;
 
 use Modules\Basic\Traits\Facet;
-use Modules\Attribute\Entity\Family;
+use Modules\Attribute\Entities\Family;
 use Modules\Basic\Services\Service as BasicService;
 
 class FamilyService
