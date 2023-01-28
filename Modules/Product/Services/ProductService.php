@@ -2,9 +2,9 @@
 
 namespace Modules\Product\Services;
 
-use Modules\Basic\Services\Service as BasicService;
 use Modules\Basic\Traits\Facet;
-use Modules\Product\Entity\Product;
+use Modules\Product\Entities\Product;
+use Modules\Basic\Services\Service as BasicService;
 
 class ProductService
 extends BasicService
