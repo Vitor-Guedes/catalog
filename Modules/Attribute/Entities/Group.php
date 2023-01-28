@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Attribute\Entity;
+namespace Modules\Attribute\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,5 +16,10 @@ extends Model
     public function attributeFamily()
     {
         return $this->belongsTo(Family::class, 'attribute_family_id');
+    }
+
+    public function findByName(string $name)
+    {
+        return (new static)->where('name', $name)->firstOrFail();
     }
 }

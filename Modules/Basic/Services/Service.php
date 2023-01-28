@@ -111,4 +111,14 @@ class Service
             'error' => $message
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    /**
+     * @param int $id
+     * 
+     * @return Model
+     */
+    public function findOrFail(int $id)
+    {
+        return $this->model->findOrFail($id);
+    }
 }

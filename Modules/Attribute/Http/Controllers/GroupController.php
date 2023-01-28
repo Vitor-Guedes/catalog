@@ -87,8 +87,8 @@ extends Controller
             return $response;
         }
         return response()->json([
-            'message' => __('attribute::general.family.update.success'),
-            'attribute_family' => $response->toArray()
+            'message' => __('attribute::general.group.update.success'),
+            'attribute_group' => $response->toArray()
         ]);
     }
 
@@ -99,7 +99,58 @@ extends Controller
             return $response;
         }
         return response()->json([
-            'message' => __('attribute::general.family.destroy.success')
+            'message' => __('attribute::general.group.destroy.success')
+        ], Response::HTTP_OK);
+    }
+
+    public function mapping(GroupService $service, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'attribute_groups.name' => 'string|required|exists:attribute_groups,name',
+            'attribute_groups.attributes' => 'required|array',
+            'attribute_groups.attributes.code.*' => 'exists:attributes,code'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $validator->errors(),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $data = $validator->validated();
+
+        $response = $service->mappingAttributes($data);
+        if ($response instanceof \Illuminate\Http\JsonResponse) {
+            return $response;
+        }
+        return response()->json([
+            'message' => __('attribute::general.group.attributes_mapping.success')
+        ], Response::HTTP_OK);
+    }
+
+    public function mappingIds(GroupService $service, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'attribute_group_id' => 'integer|required|exists:attribute_groups,id',
+            'attribute_id' => 'integer|required|exists:attributes,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $validator->errors(),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $data = $validator->validated();
+        
+        $response = $service->mappingAttributeIds($data);
+        if ($response instanceof \Illuminate\Http\JsonResponse) {
+            return $response;
+        }
+        return response()->json([
+            'message' => __('attribute::general.group.attribute_mapping.success')
         ], Response::HTTP_OK);
     }
 }
